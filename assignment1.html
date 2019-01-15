@@ -9,28 +9,34 @@
         <link href="style.css" media="screen" rel="stylesheet" type="text/css" />
 
     </head> 
-    <body> 
+    <body>
 
         <div class="header">
             <h1>Alice's Assignment 1!</h1>
             <h3>Schematic</h3>
             <img src="schematic.png" width="400">
             <p>
-                This schematic shows three individual circuits. Each has a 100 ohm resistor and a green LED light
+                In this schematic, three green LED lights are connected to three different pins, 8, 12 and 13. Each of the pin provides a 5v power. All three LEDs are in series with a resistor which is 330 ohm. All three series are connected to ground.
             </p>
             <br>
             <h3>Calculations</h3>
-            <img src="Calculations.jpg" width="400">
+            <pre>
+                Power = 5.0v, Desired Current = 20mA = 0.02A
+                Red, Green LED = 1.8v Drop
+                V = 5.0v - 1.8v = 3.2v
+                R = V/I = 3.2v / 0.02A = 160 ohm
+
+            </pre>
             <p>
-                This is the calculations I used to determine the size of the resistors. 
+                I used the ohm's law to calculate the appropriate resistor to use. The resistor should be at least 160 ohm. I chose 330 ohm for this assignment.
             </p>
             <h3>Circuit</h3>
             <img src="circuit.png" width="400">
             <p>
-                An Arduino board was used to connect the circuits. The Arduino board is attached to my computer, which provides code instructions.
+                I used an Arduino board to control the blinking speed of my LEDs. The Arduino board is connected to my computer for power source. Three pins, 13, 12 and 8, are used to connect LED lights. In each series, the and LED is also connected to a resistor. All series are connected to the ground in the end.
             </p>
             <h3>Code</h3>
-            <code>
+            <pre><code>
                 /*
                   HCDE 439 Assignment #1
                   Alice Li
@@ -70,13 +76,15 @@
                   // turn the LED off by making the voltage LOW
                   digitalWrite(12, LOW);
                 }
-            </code>
+            </code></pre>
             <h3>Circuit Operation</h3>
-            <img src="Blink.gif" width="400">
             <p>
                 This gif shows the operation of the circuit. With the first LED blinking for one second, the second two seconds and the third three seconds.
             </p>
+            <img src="Blink.gif" width="400">
         </div>
+    <br>
+    <br>
         
     </body>
 </html>
