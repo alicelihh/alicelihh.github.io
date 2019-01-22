@@ -4,22 +4,78 @@
         <meta charset="utf-8"> 
         <meta name="viewport" content="width=device-width, maximum-scale=1.0" />
 
-        <title>Example Student's HCDE 439 Physical Computing Page!</title> 
+        <title>Assignment 2 Light That Fades</title>
 
         <link href="style.css" media="screen" rel="stylesheet" type="text/css" />
 
     </head> 
-    <body> 
+    <body>
 
         <div class="header">
-            <h1>Example Student's Assignment 2!</h1>
+            <h1>Alice's Assignment 2!</h1>
+            <h3>Schematic</h3>
+            <img src="schematic1.jpg" width="400">
             <p>
-            <img src="red-panda.jpg" width=400></a>
+                In this schematic, one green LED light is connected to pin 11, with a resister controlling the current. A button and resistor is connected to 5V power source, and parallel with a pin 2 connection.
             </p>
+            <br>
+            <h3>Calculations</h3>
+            <img src="calculations1.jpg" width="400">
             <p>
-            Here is all the documentation for assignment 2!
+                I used the ohm's law to calculate the appropriate resistor to use. The resistor should be at least 160 ohm. I chose 330 ohm for this assignment.
+                For the button, I chose a 1k resistor, because as long as there's current, the button works.
             </p>
+            <h3>Circuit</h3>
+            <img src="circuit1.jpg" width="400">
+            <p>
+                I used an Arduino board for powering the LED and pushbutton. The Arduino board is connected to my computer for power source. Pin 11 is connected to the resistor and LED, and pin 2 is in parallel with a pushbutton circuit. The pushbutton receives power from the Arduino Board.
+            </p>
+            <h3>Code</h3>
+            <pre><code>
+                /*
+                  HCDE 439 Assignment #2
+                  Alice Li
+                  Jan.22nd, 2019
+                */
+
+                // initiate the state of button with integer 0
+                int buttonState = 0;
+
+                void setup() {
+                  //set pin 11 to be an output
+                  pinMode(11, OUTPUT);
+
+                }
+
+                void loop() {
+                  // read the digital state of pin two, whether the button is on
+                  buttonState = digitalRead(2);
+                  // if the button is on (pushed)
+                  if (buttonState == HIGH) {
+                    // the LED light from pin 11 turn on
+                    digitalWrite(11, HIGH);
+                    // the LED light will stay on for 0.1 second
+                    delay(100);
+                    // the LED light will turn off
+                    digitalWrite(11, LOW);
+                    // the LED light will be switched off for 0.1 second
+                    delay(100);
+                  } else {
+                    // loop through the code, each time decreasing the brightness of the light
+                    for (int i = 0; i < 256; i++) {
+                      analogWrite(11, i);
+                      // wait for 10 seconds
+                      delay(10);
+                    }
+                  }
+                }
+            </code></pre>
+            <h3>Circuit Operation</h3>
+            <p>
+                This gif shows the operation of the circuit. With the first LED fading until the button is pushed. When the button is pushed, the LED starts blinking.
+            </p>
+            <img src="operation1.gif" width="400">
         </div>
-        
-    </body>
+    <br>
+    <br>
 </html>
