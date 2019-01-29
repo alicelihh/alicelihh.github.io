@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, maximum-scale=1.0" />
+
+        <title>Assignment 3 Input Output</title>
+
+        <link href="style.css" media="screen" rel="stylesheet" type="text/css" />
+
+    </head>
+    <body>
+
+        <div class="header">
+            <h1>Alice's Assignment 3!</h1>
+            <h3>Schematic</h3>
+            <img src="schematic2.jpg" width="400">
+            <p>
+                In this schematic, one green LED light is connected to pin 11, with a resister controlling the current. A light sensor and resistor is connected to 5V power source, and voltage divided to input A0.
+            </p>
+            <br>
+            <h3>Calculations</h3>
+            <img src="calculations1.jpg" width="400">
+            <img src="Calculations2.jpg" width="400">
+            <p>
+                I used the ohm's law to calculate the appropriate resistor to use. The resistor should be at least 160 ohm. I chose 330 ohm for this assignment.
+                For the sensor, I chose a 330 resistor, because any resistor is fine to control this current.
+            </p>
+            <h3>Circuit</h3>
+            <img src="circuit2.jpg" width="400">
+            <p>
+                I used an Arduino board for powering the LED and pushbutton. The Arduino board is connected to my computer for power source. Pin 11 is connected to the resistor and LED, and the power pin (5v) is connected to the light sensor. The light sensor is voltage diverged to input pin A0.
+            </p>
+            <h3>Code</h3>
+            <pre><code>
+                /*
+                Alice Li
+                Assignment #3
+                HCDE 439
+                Jan 28th, 2019
+                */
+
+                const int analogInPin = A0;  // Analog input pin that the sensor is attached to
+                const int analogOutPin = 11; // Analog output pin that the LED is attached to
+
+                int sensorValue = 0;        // value read from the sensor
+                int outputValue = 0;        // value output
+
+                void setup() {
+                  // initialize serial communications at 9600 bps:
+                  Serial.begin(9600);
+                }
+
+                void loop() {
+                  sensorValue = analogRead(analogInPin); // read in the analog value
+                  outputValue = map(sensorValue, 0, 1023, 0, 255); // mao it to the range of the analog out
+                  analogWrite(analogOutPin, outputValue); // change the analog out value
+
+                  // print the results to the Serial Monitor:
+                  Serial.print("sensor = ");
+                  Serial.print(sensorValue);
+                  Serial.print("\t output = ");
+                  Serial.println(outputValue);
+
+                  // wait 2 milliseconds before the next loop for the analog-to-digital
+                  // converter to settle after the last reading:
+                  delay(2);
+                }
+            </code></pre>
+            <h3>Circuit Operation</h3>
+            <p>
+                This gif shows the operation of the circuit. With the first LED fading as the light sensor gets dark.
+            </p>
+            <img src="InputOutput.gif" width="400">
+        </div>
+    <br>
+    <br>
+</html>
