@@ -18,8 +18,8 @@ void setup() {
 
 void loop() {
   sensorValue = analogRead(analogInPin); // read in the analog value
-  outputValue = map(sensorValue, 0, 1023, 0, 255); // mao it to the range of the analog out
-  analogWrite(analogOutPin, outputValue); // change the analog out value
+  outputValue = map(sensorValue, 0, 1023, 0, 255); // map it to the range of the analog out
+  //analogWrite(analogOutPin, outputValue); // change the analog out value
 
   // print the results to the Serial Monitor:
   Serial.print("sensor = ");
@@ -27,7 +27,16 @@ void loop() {
   Serial.print("\t output = ");
   Serial.println(outputValue);
 
-  // wait 2 milliseconds before the next loop for the analog-to-digital
-  // converter to settle after the last reading:
-  delay(2);
+  if (sensorValue <= 20) {
+    // the LED light from pin 11 turn on
+    digitalWrite(11, HIGH);
+    // the LED light will stay on for 0.1 second
+    delay(100);
+    // the LED light will turn off
+    digitalWrite(11, LOW);
+    // the LED light will be switched off for 0.1 second
+    delay(100);
+  } else {
+    analogWrite(analogOutPin, outputValue); // change the analog out value
+  }
 }
