@@ -19,7 +19,6 @@ void setup() {
 void loop() {
   sensorValue = analogRead(analogInPin); // read in the analog value
   outputValue = map(sensorValue, 0, 1023, 0, 255); // map it to the range of the analog out
-  //analogWrite(analogOutPin, outputValue); // change the analog out value
 
   // print the results to the Serial Monitor:
   Serial.print("sensor = ");
@@ -27,7 +26,7 @@ void loop() {
   Serial.print("\t output = ");
   Serial.println(outputValue);
 
-  if (sensorValue <= 20) {
+  if (sensorValue <= 20) { // if the sensor senses less than 20 light (covered)
     // the LED light from pin 11 turn on
     digitalWrite(11, HIGH);
     // the LED light will stay on for 0.1 second
@@ -36,7 +35,7 @@ void loop() {
     digitalWrite(11, LOW);
     // the LED light will be switched off for 0.1 second
     delay(100);
-  } else {
+  } else { // change the analog to the out value
     analogWrite(analogOutPin, outputValue); // change the analog out value
   }
 }

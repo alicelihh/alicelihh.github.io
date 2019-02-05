@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, maximum-scale=1.0" />
+
+        <title>Assignment 4 Higher Voltage and Transistors</title>
+
+        <link href="style.css" media="screen" rel="stylesheet" type="text/css" />
+
+    </head>
+    <body>
+
+        <div class="header">
+            <h1>Alice's Assignment 4!</h1>
+            <h3>Schematic</h3>
+            <img src="schematic4.jpg" width="400">
+            <p>
+                In this schematic, a transistir is connected to pin 9, with one end connected to a resister controlling the current, and the other one to a LED strip. The LED strip is connected to a 12v power source. A light sensor and resistor is connected to 5V power source, and voltage divided to input A0.
+            </p>
+            <br>
+            <h3>Calculations</h3>
+            <img src="calculations4.jpg" width="400">
+            <p>
+                There are in total of 93 LEDs. I calculated the current, 0.458A that the circuit could hold. I used the ohm's law to calculate the appropriate resistor to use. The resistor should be at least 600 and 250 ohm. I chose 10k ohm resistors for this assignment.
+            </p>
+            <h3>Circuit</h3>
+            <img src="circuit4.jpg" width="400">
+            <p>
+                I used an Arduino board control the light sensor and LEDs. The Arduino board is connected to my computer for power source. Pin 9 is connected to the resistor and LEDs, and the power pin (5v) is connected to the light sensor. The light sensor is voltage diverged to input pin A0.
+            </p>
+            <h3>Code</h3>
+            <pre><code>
+                /*
+                Alice Li
+                Assignment #4
+                HCDE 439
+                Feb 5th, 2019
+                */
+
+                const int analogInPin = A0;  // Analog input pin that the potentiometer is attached to
+                const int analogOutPin = 9; // Analog output pin that the LED is attached to
+
+                int sensorValue = 0;        // value read from the pot
+                int outputValue = 0;        // value output to the PWM (analog out)
+
+                void setup() {
+                  // initialize serial communications at 9600 bps:
+                  Serial.begin(9600);
+                }
+
+                void loop() {
+                  // read the analog in value:
+                  sensorValue = analogRead(analogInPin);
+                  // map it to the range of the analog out:
+                  outputValue = map(sensorValue, 400, 1023, 0, 255);
+                  // change the analog out value:
+                  analogWrite(analogOutPin, outputValue);
+
+                  // print the results to the Serial Monitor:
+                  Serial.print("sensor = ");
+                  Serial.print(sensorValue);
+                  Serial.print("\t output = ");
+                  Serial.println(outputValue);
+
+                  // wait 2 milliseconds before the next loop for the analog-to-digital
+                  // converter to settle after the last reading:
+                  delay(2);
+                }
+            </code></pre>
+            <h3>Circuit Operation</h3>
+            <p>
+                This gif shows the operation of the circuit. With the first LED mapping to the light sensor, when the sensor is dark (covered), the LEDs will light up (brighter).
+            </p>
+            <img src="InputOutput.gif" width="400">
+        </div>
+    <br>
+    <br>
+</html>
