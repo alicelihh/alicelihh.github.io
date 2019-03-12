@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, maximum-scale=1.0" />
+
+        <title>Final Assignment</title>
+
+        <link href="style.css" media="screen" rel="stylesheet" type="text/css" />
+        <script src="../../../../../../Downloads/p5/p5/hcde439-example/sketch.js"></script>
+        <style>
+            pre {
+                font-family: "Arial Hebrew", Arial, sans-serif;
+            }
+        </style>
+
+    </head>
+    <body>
+
+        <div class="header">
+            <h1>Alice's Final Project!</h1>
+            <br>
+            <img src="circuitfinal.png" width="400">
+            <p>
+                <pre>
+        Hello everyone!
+
+        This technical documentation will guide you through my final project - LuminWall. Before we go into the
+        implementation of this project, I would like to provide some background information and concept.
+                </pre>
+            </p>
+            <h3>Background</h3>
+            <p>
+                <pre>
+        For seniors, falling could result in major injuries or even death. Seniors are likely to fall during night time
+        when they wake up during their sleep. It is important for seniors to be able to see well of the surroundings
+        to prevent accidents. To improve the lighting system of homes, this report will propose  a  lighting  system
+        that  is  more  accessible  to  seniors  and  perhaps  use  a  different  control  system. This lighting
+        system will be connected to the walls of the home. Unlike current lighting systems, where light switches
+        are the only interface for turning on lights, this new lighting system will extend the switch to the whole
+        surface of the wall.
+        </pre>
+            </p>
+            <h3>Concept</h3>
+            <p>
+                <pre>
+        LuminWall can conceptually reduce the risk of finding a switch in the dark, which reduce senior night falls.
+        In addition, LuminWall introduces a new variation of switch control. Looking into the feature, designers and
+        engineers should not be limited to one variation of ON/OFF switch.
+
+        The project uses Capacitive Sensing, which requires little or no force to activate. The sensor plate and your
+        body forms a capacitor. A capacitor stores charge. The more its capacitance, the more charge it can store.
+        The capacitance of this capacitive touch sensor depends on how close your hand is to the plate. The Arduino
+        measures how much time the capacitor (i.e the touch sensor) takes to charge, giving it an estimate of the
+        capacitance. Using the variation of time, we can create a touch-based sensing system.
+        </pre>
+            </p>
+            <h3>Materials</h3>
+            <p>
+                <ul>
+            <li>
+                Arduino Board
+            </li>
+            <li>
+                Two 1M resistors
+            </li>
+            <li>
+                One 10k resistor
+            </li>
+            <li>
+                A white LED
+            </li>
+            <li>
+                A penny
+            </li>
+            <li>
+                Wires
+            </li>
+        </ul>
+            </p>
+            <p>
+                <pre>
+        This project uses Capacitive Sensing. Please make sure the <a style="color: #0a7ec9" href=http://playground.arduino.cc/Main/CapacitiveSensor?from=Main.CapSense">Capsense Library</a> a is downloaded to your Arduino.
+        </pre>
+            </p>
+            <h3>Circuit</h3>
+            <p>
+                <pre>
+        Follow the images to connect the circuit.
+        </pre>
+            <ol>
+                <li>
+                    Connect the LED and the 10k Ohm resistor in series across pin 8 and ground.
+                </li>
+                <li>
+                    Connect the two 1m Ohm resistors in series across pin 4 and pin 2.
+                </li>
+                <li>
+                    Connect the penny to pin 4.
+                </li>
+            </ol>
+            </p>
+            <img src="schematicfinal.png">
+            <img src="circuitfinal2.jpg" width="400">
+            <h3>Code</h3>
+            <pre><code>
+        Alice Li
+        Final Assignment
+        HCDE 439
+        Mar. 12th, 2019
+
+        #include <CapacitiveSensor.h>
+
+        CapacitiveSensor   cs_4_2 = CapacitiveSensor(4,2); // two 1M resistor between pins 4 & 2, pin 4 receive pin, connect to penny
+
+
+        void setup()
+        {
+           cs_4_2.set_CS_AutocaL_Millis(0xFFFFFFFF); // turn off autocalibrate on channel 1 - just as an example
+           Serial.begin(9600);
+        }
+
+        void loop()
+        {
+            long start = millis();
+            long total1 =  cs_4_2.capacitiveSensor(30);
+
+            Serial.print(millis() - start);        // check on performance in milliseconds
+            Serial.print("\t");                    // tab character for debug windown spacing
+
+            Serial.print(total1);                  // print sensor output 1
+            Serial.print("\n");
+
+            delay(10);                             // arbitrary delay to limit data to serial port
+            if (total1 < 10) { // if the sensor senses less than 10
+              if (digitalRead(8) == HIGH) { // if the LED is already on
+                digitalWrite(8, LOW);       // turn the LED off
+                delay(500);                 // delay for 0.5 sec
+              } else {
+                digitalWrite(8, HIGH);      // turn the LED on
+                delay(500);                 // delay for 0.5 sec
+              }
+            }
+        }
+
+            </code></pre>
+            <h3>Video Demo</h3>
+            <p>
+                Please <a style="color: #0a7ec9" href="https://drive.google.com/file/d/1icfvEop8r22etCqc6N8v7SbQMp6xS40_/view?usp=sharing">click here</a> to see the video demo.
+                P.S I hid the penny behind the "walls".
+            </p>
+            <img src="thankYou.jpg">
+        </div>
+    <br>
+    <br>
+</html>
